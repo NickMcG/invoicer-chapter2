@@ -34,8 +34,8 @@ test:
         
     - mkdir bin
     - cp "$GOPATH_HEAD/bin/invoicer" bin/
-    - docker build -t securingdevops/invoicer .
-    - docker run securingdevops/invoicer &
+    - docker build -t ${DOCKER_REPO}/${CIRCLE_PROJECT_REPONAME} .
+    - docker run ${DOCKER_REPO}/${CIRCLE_PROJECT_REPONAME} &
     
     - docker pull owasp/zap2docker-weekly
     

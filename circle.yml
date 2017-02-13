@@ -33,7 +33,7 @@ test:
         github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
         
     - mkdir bin
-    - cp "$GOPATH_HEAD/bin/invoicer" bin/
+    - cp "$GOPATH_HEAD/bin/${CIRCLE_PROJECT_REPONAME}" bin/invoicer
     - docker build -t ${DOCKER_REPO}/${CIRCLE_PROJECT_REPONAME} .
     - docker run ${DOCKER_REPO}/${CIRCLE_PROJECT_REPONAME} &
     

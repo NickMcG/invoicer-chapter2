@@ -27,6 +27,22 @@ test:
         go test
         github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
 
+    # Go applications in the busybox container must be built statically
+    ->
+        go install --ldflags 'extldflags "-static"'
+        github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
+        
+    - mkdir bin
+    - cp "$GOPATH_HEAD/bin/invoicer" bin/
+    - docker build -t securingdevops/invoicer .
+    - docker run securingdevops/invoicer &
+    
+    - docker pull owasp/zap2docker-weekly
+    
+    ->
+        docker run -t owasp/zap2docker-weekly
+        zap-baseline.py -t http://172.17.0.2:8080/
+
 deployment:
   hub_latest:
     # appropriately tag and push the container to dockerhub

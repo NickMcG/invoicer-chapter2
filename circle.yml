@@ -28,7 +28,7 @@ test:
         github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
 
     # Go applications in the busybox container must be built statically
-    ->
+    - >
         go install --ldflags 'extldflags "-static"'
         github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
         
@@ -39,7 +39,7 @@ test:
     
     - docker pull owasp/zap2docker-weekly
     
-    ->
+    - >
         docker run -t owasp/zap2docker-weekly
         zap-baseline.py -t http://172.17.0.2:8080/
 

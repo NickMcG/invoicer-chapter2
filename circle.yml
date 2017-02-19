@@ -40,8 +40,8 @@ test:
     - docker pull owasp/zap2docker-weekly
     
     # Run zap against the invoicer
-    - docker run ${DOCKER_REPO}/${CIRCLE_PROJECT_REPONAME} &
-    - docker run -t owasp/zap2docker-weekly zap-baseline.py -u https://raw.githubusercontent.com/Securing-DevOps/invoicer/master/zap-baseline.conf -t http://172.17.0.2:8080/
+    - docker run -d -p 8080:8080 ${DOCKER_REPO}/${CIRCLE_PROJECT_REPONAME} &
+    - docker run -t owasp/zap2docker-weekly zap-baseline.py -u https://raw.githubusercontent.com/Securing-DevOps/invoicer/master/zap-baseline.conf -t http://localhost:8080/
 
     # Run GOVEND against the invoicer to check if outdated dependencies are present
     - 'GOPATH="$GOPATH_HEAD"; ( cd ${GOPATH_BASE}/${CIRCLE_PROJECT_REPONAME} && govend -u && git diff --quiet )'
